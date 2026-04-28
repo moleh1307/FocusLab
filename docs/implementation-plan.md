@@ -22,6 +22,8 @@
 - Create/load active sprint.
 - CRUD for tasks, blockers, notes, decisions, artifacts, milestones.
 
+Current implementation note: the web-shell prototype uses browser local storage as a development adapter. This is useful for workflow validation but must be replaced with SQLite before desktop readiness.
+
 ### Slice 3: Focus Workflow
 
 - Fast capture for common entries.
@@ -62,4 +64,3 @@ If Rust remains unavailable, Desktop Engineer may implement and test the React/V
 - Add remote `origin` as `https://github.com/moleh1307/FocusLab.git`.
 - Do not push until the local baseline is clean and Melih approves.
 - Keep `company/` ignored because it contains private Company Mode operating memory.
-
