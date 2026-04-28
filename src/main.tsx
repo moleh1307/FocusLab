@@ -15,21 +15,49 @@ import {
 } from "lucide-react";
 import { createId, FocusLabState, nowIso, Priority, Status } from "./domain";
 import { generateMarkdownHandoff, generateNextChatPrompt, getReadinessWarnings } from "./handoff";
-import { loadState, saveState } from "./storage";
+import { loadFallbackState, loadPersistedState, saveFallbackState, savePersistedState } from "./storage";
 import "./styles.css";
 
 const statusOptions: Status[] = ["todo", "active", "blocked", "done", "dropped"];
 const priorityOptions: Priority[] = ["P0", "P1", "P2"];
 
 function App() {
-  const [state, setState] = useState<FocusLabState>(() => loadState());
+  const [state, setState] = useState<FocusLabState>(() => loadFallbackState());
+  const [hydrated, setHydrated] = useState(false);
   const [capture, setCapture] = useState("");
   const [search, setSearch] = useState("");
   const [showExport, setShowExport] = useState(false);
 
   useEffect(() => {
-    saveState(state);
-  }, [state]);
+    let cancelled = false;
+
+    loadPersistedState()
+      .then((persisted) => {
+        if (!cancelled) {
+          setState(persisted);
+          setHydrated(true);
+        }
+      })
+      .catch(() => {
+        setHydrated(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    saveFallbackState(state);
+
+    if (!hydrated) {
+      return;
+    }
+
+    savePersistedState(state).catch(() => {
+      // Keep browser fallback state intact if the desktop adapter fails.
+    });
+  }, [hydrated, state]);
 
   const warnings = useMemo(() => getReadinessWarnings(state), [state]);
   const handoff = useMemo(() => generateMarkdownHandoff(state), [state]);
@@ -386,4 +414,3 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </React.StrictMode>
 );
-

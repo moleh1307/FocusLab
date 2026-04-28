@@ -40,3 +40,4 @@ Current local prerequisite gap: Rust/Cargo are not installed on this machine yet
 - [Implementation Plan](docs/implementation-plan.md)
 - [Prototype Status](docs/prototype-status.md)
 - [Web-Shell QA Report](docs/qa-web-shell.md)
+- [Desktop QA Report](docs/qa-desktop.md)

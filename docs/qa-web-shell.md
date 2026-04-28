@@ -4,7 +4,7 @@ Date: 2026-04-28
 
 ## Scope
 
-This QA pass covers the current React/Vite web-shell prototype. It does not certify final desktop readiness because Tauri packaging and SQLite persistence are still blocked by the missing Rust/Cargo toolchain.
+This QA pass covered the React/Vite web-shell prototype before desktop integration. It is superseded for desktop readiness by the later Tauri/SQLite verification recorded in `docs/prototype-status.md`.
 
 ## Results
 
@@ -35,4 +35,3 @@ The web-shell prototype is useful enough to guide the next engineering step, but
 2. Tauri shell is added.
 3. SQLite persistence replaces browser local storage.
 4. QA verifies restart persistence in the desktop app.
-

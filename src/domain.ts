@@ -96,7 +96,7 @@ export function createInitialState(): FocusLabState {
       title: "FocusLab Milestone 1",
       goal: "Build a single-sprint execution and handoff prototype for JARVIS/Codex work.",
       status: "active",
-      currentState: "Architecture, product workflow, and handoff contract are defined. Implementation is active.",
+      currentState: "Desktop shell, SQLite persistence, and handoff export are implemented for the first prototype.",
       startedAt: now,
       updatedAt: now
     },
@@ -110,16 +110,7 @@ export function createInitialState(): FocusLabState {
         updatedAt: now
       }
     ],
-    blockers: [
-      {
-        id: createId("blocker"),
-        title: "Rust/Cargo missing for Tauri packaging",
-        description: "Vite/React can build, but final desktop packaging needs the Rust toolchain.",
-        status: "open",
-        neededFrom: "Melih approval or local Rust installation",
-        createdAt: now
-      }
-    ],
+    blockers: [],
     decisions: [
       {
         id: createId("decision"),
@@ -127,7 +118,7 @@ export function createInitialState(): FocusLabState {
         context: "FocusLab needs a local, private, native-feeling macOS app.",
         decision: "Use Tauri, React, TypeScript, and SQLite for Milestone 1.",
         rationale: "This gives a smaller desktop footprint than Electron, fast UI iteration, and reliable local persistence.",
-        impact: "Rust/Cargo are required before final Tauri verification.",
+        impact: "Rust/Cargo are installed locally and Tauri debug packaging verifies.",
         createdAt: now
       }
     ],
@@ -135,7 +126,7 @@ export function createInitialState(): FocusLabState {
       {
         id: createId("note"),
         kind: "progress",
-        body: "Company Mode initialized; architecture, workflow, and handoff contract are available in docs/.",
+        body: "Company Mode initialized; architecture, workflow, handoff contract, Tauri shell, and SQLite persistence are available.",
         createdAt: now
       }
     ],
@@ -169,4 +160,3 @@ export function createInitialState(): FocusLabState {
     ]
   };
 }
-
