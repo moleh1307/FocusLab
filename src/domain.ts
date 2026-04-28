@@ -80,7 +80,10 @@ export interface FocusLabState {
 }
 
 export function createId(prefix: string) {
-  return `${prefix}_${crypto.randomUUID()}`;
+  const randomUUID = globalThis.crypto?.randomUUID?.bind(globalThis.crypto);
+  const id = randomUUID ? randomUUID() : `${Date.now()}_${Math.random().toString(36).slice(2)}`;
+
+  return `${prefix}_${id}`;
 }
 
 export function nowIso() {
