@@ -39,3 +39,4 @@ Current local prerequisite gap: Rust/Cargo are not installed on this machine yet
 - [Handoff Contract](docs/handoff-contract.md)
 - [Implementation Plan](docs/implementation-plan.md)
 - [Prototype Status](docs/prototype-status.md)
+- [Web-Shell QA Report](docs/qa-web-shell.md)
