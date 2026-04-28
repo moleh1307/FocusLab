@@ -214,6 +214,13 @@ label {
   color: #9ccbb7;
 }
 
+.empty-copy {
+  margin: 0;
+  color: #93a19a;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .warning-list {
   display: grid;
   gap: 8px;

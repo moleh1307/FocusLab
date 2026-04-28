@@ -96,70 +96,18 @@ export function createInitialState(): FocusLabState {
   return {
     sprint: {
       id: createId("sprint"),
-      title: "FocusLab Milestone 1",
-      goal: "Build a single-sprint execution and handoff prototype for JARVIS/Codex work.",
+      title: "Untitled sprint",
+      goal: "",
       status: "active",
-      currentState: "Desktop shell, SQLite persistence, and handoff export are implemented for the first prototype.",
+      currentState: "",
       startedAt: now,
       updatedAt: now
     },
-    tasks: [
-      {
-        id: createId("task"),
-        title: "Implement the single-sprint app shell",
-        status: "active",
-        priority: "P0",
-        createdAt: now,
-        updatedAt: now
-      }
-    ],
+    tasks: [],
     blockers: [],
-    decisions: [
-      {
-        id: createId("decision"),
-        title: "Keep Tauri + React + TypeScript + SQLite direction",
-        context: "FocusLab needs a local, private, native-feeling macOS app.",
-        decision: "Use Tauri, React, TypeScript, and SQLite for Milestone 1.",
-        rationale: "This gives a smaller desktop footprint than Electron, fast UI iteration, and reliable local persistence.",
-        impact: "Rust/Cargo are installed locally and Tauri debug packaging verifies.",
-        createdAt: now
-      }
-    ],
-    notes: [
-      {
-        id: createId("note"),
-        kind: "progress",
-        body: "Company Mode initialized; architecture, workflow, handoff contract, Tauri shell, and SQLite persistence are available.",
-        createdAt: now
-      }
-    ],
-    artifacts: [
-      {
-        id: createId("artifact"),
-        label: "Architecture docs",
-        path: "/Users/melihkarakose/Projects/Active/FocusLab/docs/architecture.md",
-        kind: "file",
-        description: "Stack, storage boundary, and module plan.",
-        createdAt: now
-      },
-      {
-        id: createId("artifact"),
-        label: "Handoff contract",
-        path: "/Users/melihkarakose/Projects/Active/FocusLab/docs/handoff-contract.md",
-        kind: "file",
-        description: "Markdown export and next-chat prompt contract.",
-        createdAt: now
-      }
-    ],
-    milestones: [
-      {
-        id: createId("milestone"),
-        title: "Single-Sprint Focus Loop Prototype",
-        status: "active",
-        summary: "One active sprint with tasks, blockers, decisions, notes, artifacts, and handoff export.",
-        createdAt: now,
-        updatedAt: now
-      }
-    ]
+    decisions: [],
+    notes: [],
+    artifacts: [],
+    milestones: []
   };
 }

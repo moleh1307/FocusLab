@@ -14,6 +14,7 @@
 - Tauri desktop shell.
 - SQLite persistence in `~/Library/Application Support/FocusLab/focuslab.sqlite`.
 - Debug `.app` and `.dmg` bundle outputs.
+- Clean first-run state with editable sprint title, empty goal/current-state fields, and empty-section guidance.
 
 ## Verification
 
@@ -31,11 +32,12 @@ Checked on 2026-04-28:
   - `src-tauri/target/debug/bundle/dmg/FocusLab_0.1.0_aarch64.dmg`
 - Desktop app rendered in a native Tauri window.
 - Desktop SQLite persistence smoke test passed after app restart.
+- First-run setup state rendered without project-specific seed data.
 
 ## Known Gaps
 
 - No automated test suite yet.
-- Current SQLite database contains a QA smoke-test task from verification unless reset later.
+- Current SQLite database is agent-created review data and can be reset during QA/release cleanup.
 
 ## Next Engineering Step
 

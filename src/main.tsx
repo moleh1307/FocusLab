@@ -208,7 +208,7 @@ function App() {
       <header className="top-bar">
         <div>
           <p className="eyebrow">FocusLab</p>
-          <h1>{state.sprint.title}</h1>
+          <h1>{state.sprint.title || "Untitled sprint"}</h1>
         </div>
         <div className="top-actions">
           <span className="status-pill">{state.sprint.status}</span>
@@ -236,6 +236,17 @@ function App() {
               <Sparkles size={16} />
               Sprint Map
             </div>
+            <label>
+              Title
+              <input
+                className="search-input"
+                value={state.sprint.title}
+                onChange={(event) =>
+                  updateState({ ...state, sprint: { ...state.sprint, title: event.target.value } })
+                }
+                placeholder="Name this sprint"
+              />
+            </label>
             <label>
               Goal
               <textarea
@@ -302,7 +313,9 @@ function App() {
               Tasks
             </div>
             <div className="task-list">
-              {filteredTasks.map((task) => (
+              {filteredTasks.length === 0 ? (
+                <p className="empty-copy">Capture `task: ...` to define the next action.</p>
+              ) : filteredTasks.map((task) => (
                 <article className="task-row" key={task.id}>
                   <div>
                     <strong>{task.title}</strong>
@@ -328,7 +341,7 @@ function App() {
 
         <aside className="right-rail">
           <RailSection icon={<ShieldAlert size={16} />} title="Blockers">
-            {state.blockers.map((blocker) => (
+            {state.blockers.length === 0 ? <p className="empty-copy">No blockers captured.</p> : state.blockers.map((blocker) => (
               <article className="compact-item" key={blocker.id}>
                 <strong>{blocker.title}</strong>
                 <span>{blocker.neededFrom || "Needed from not set"}</span>
@@ -337,7 +350,7 @@ function App() {
           </RailSection>
 
           <RailSection icon={<CheckCircle2 size={16} />} title="Decisions">
-            {state.decisions.map((decision) => (
+            {state.decisions.length === 0 ? <p className="empty-copy">No decisions captured.</p> : state.decisions.map((decision) => (
               <article className="compact-item" key={decision.id}>
                 <strong>{decision.title}</strong>
                 <span>{decision.rationale || "Rationale not captured"}</span>
@@ -346,7 +359,7 @@ function App() {
           </RailSection>
 
           <RailSection icon={<FileText size={16} />} title="Notes">
-            {state.notes.map((note) => (
+            {state.notes.length === 0 ? <p className="empty-copy">No notes captured.</p> : state.notes.map((note) => (
               <article className="compact-item" key={note.id}>
                 <strong>{note.kind}</strong>
                 <span>{note.body}</span>
@@ -355,7 +368,7 @@ function App() {
           </RailSection>
 
           <RailSection icon={<FolderOpen size={16} />} title="Artifacts">
-            {state.artifacts.map((artifact) => (
+            {state.artifacts.length === 0 ? <p className="empty-copy">No artifact paths linked.</p> : state.artifacts.map((artifact) => (
               <article className="compact-item" key={artifact.id}>
                 <strong>{artifact.label}</strong>
                 <span>{artifact.path}</span>
