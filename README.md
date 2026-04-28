@@ -35,5 +35,5 @@ Current local prerequisite gap: Rust/Cargo are not installed on this machine yet
 
 - [Architecture](docs/architecture.md)
 - [Data Model](docs/data-model.md)
+- [Product Workflow](docs/product-workflow.md)
 - [Implementation Plan](docs/implementation-plan.md)
-
