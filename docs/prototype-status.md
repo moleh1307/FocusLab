@@ -15,6 +15,7 @@
 - SQLite persistence in `~/Library/Application Support/FocusLab/focuslab.sqlite`.
 - Debug `.app` and `.dmg` bundle outputs.
 - Clean first-run state with editable sprint title, empty goal/current-state fields, and empty-section guidance.
+- Guarded New sprint action with an in-app confirmation for intentionally clearing the current local sprint state.
 
 ## Verification
 

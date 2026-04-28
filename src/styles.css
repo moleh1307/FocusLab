@@ -319,6 +319,35 @@ label {
   justify-content: flex-start;
 }
 
+.reset-panel {
+  width: min(440px, 100%);
+  padding: 18px;
+}
+
+.reset-panel h2 {
+  margin-top: 4px;
+}
+
+.modal-copy {
+  margin: 14px 0 0;
+  color: #c4cec8;
+  line-height: 1.5;
+}
+
+.reset-actions {
+  padding: 18px 0 0;
+  border-bottom: 0;
+}
+
+.danger-action {
+  border-color: rgba(223, 121, 121, 0.42);
+  background: #4b2424;
+}
+
+.danger-action:hover {
+  border-color: rgba(241, 154, 154, 0.66);
+}
+
 pre {
   max-height: 58vh;
   margin: 0;

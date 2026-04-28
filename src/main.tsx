@@ -9,11 +9,12 @@ import {
   FolderOpen,
   ListChecks,
   Plus,
+  RotateCcw,
   Search,
   ShieldAlert,
   Sparkles
 } from "lucide-react";
-import { createId, FocusLabState, nowIso, Priority, Status } from "./domain";
+import { createId, createInitialState, FocusLabState, nowIso, Priority, Status } from "./domain";
 import { generateMarkdownHandoff, generateNextChatPrompt, getReadinessWarnings } from "./handoff";
 import { loadFallbackState, loadPersistedState, saveFallbackState, savePersistedState } from "./storage";
 import "./styles.css";
@@ -27,6 +28,7 @@ function App() {
   const [capture, setCapture] = useState("");
   const [search, setSearch] = useState("");
   const [showExport, setShowExport] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -189,6 +191,15 @@ function App() {
     });
   }
 
+  function handleNewSprint() {
+    setShowResetConfirm(true);
+  }
+
+  function confirmNewSprint() {
+    setState(createInitialState());
+    setShowResetConfirm(false);
+  }
+
   async function copy(text: string) {
     await navigator.clipboard.writeText(text);
   }
@@ -212,6 +223,10 @@ function App() {
         </div>
         <div className="top-actions">
           <span className="status-pill">{state.sprint.status}</span>
+          <button onClick={handleNewSprint}>
+            <RotateCcw size={16} />
+            New sprint
+          </button>
           <button className="primary-action" onClick={() => setShowExport(true)}>
             <FileText size={16} />
             Handoff
@@ -377,6 +392,28 @@ function App() {
           </RailSection>
         </aside>
       </section>
+
+      {showResetConfirm && (
+        <section className="export-overlay" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+          <div className="export-panel reset-panel">
+            <div>
+              <p className="eyebrow">New sprint</p>
+              <h2 id="reset-title">Clear current sprint?</h2>
+            </div>
+            <p className="modal-copy">
+              This starts from a blank first-run sprint and replaces the current local app state. Export a handoff
+              first if this sprint needs to be preserved.
+            </p>
+            <div className="export-actions reset-actions">
+              <button onClick={() => setShowResetConfirm(false)}>Cancel</button>
+              <button className="danger-action" onClick={confirmNewSprint}>
+                <RotateCcw size={16} />
+                Clear sprint
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
 
       {showExport && (
         <section className="export-overlay" role="dialog" aria-modal="true">

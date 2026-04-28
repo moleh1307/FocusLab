@@ -10,4 +10,5 @@
 - Added Markdown handoff export, clipboard-ready next-chat prompt, and Markdown save action.
 - Added desktop QA evidence and initial automated handoff tests.
 - Replaced project-specific seed data with a reusable first-run sprint setup state.
+- Added a guarded New sprint action with an in-app confirmation for clearing local sprint state intentionally.
 - Published the public GitHub baseline at `https://github.com/moleh1307/FocusLab`.
