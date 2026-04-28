@@ -34,12 +34,13 @@ Checked on 2026-04-28:
 - Desktop app rendered in a native Tauri window.
 - Desktop SQLite persistence smoke test passed after app restart.
 - First-run setup state rendered without project-specific seed data.
+- `npm test` covers handoff generation and first-run/reset lifecycle invariants.
 
 ## Known Gaps
 
-- No automated test suite yet.
-- Current SQLite database is agent-created review data and can be reset during QA/release cleanup.
+- No automated UI test suite yet.
+- Current SQLite database may contain agent-created review data and can be reset during QA/release cleanup.
 
 ## Next Engineering Step
 
-Add automated tests for handoff generation and storage behavior, then run a final product review with Melih.
+Add storage-adapter coverage or lightweight UI automation for the reset/export flows.
