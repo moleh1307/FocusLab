@@ -2,9 +2,11 @@
 
 Date: 2026-04-28
 
+Updated: 2026-04-29
+
 ## Scope
 
-This QA pass covers the Tauri desktop prototype with SQLite persistence.
+This QA pass originally covered the Tauri desktop prototype with SQLite persistence. The update records the current automated coverage added after the initial desktop smoke pass.
 
 ## Results
 
@@ -20,6 +22,9 @@ This QA pass covers the Tauri desktop prototype with SQLite persistence.
 | SQLite write | Pass | `app_state` row exists with persisted sprint JSON |
 | Restart persistence | Pass | QA smoke-test task survived app quit/reopen |
 | Handoff preview | Pass | Desktop handoff preview opens with Fresh-Chat Starter and Exact Next Action |
+| Automated unit coverage | Pass | `npm test` covers handoff, lifecycle, storage serialization, and capture/reset state transitions |
+| Rust persistence coverage | Pass | `cargo test --manifest-path src-tauri/Cargo.toml` covers SQLite persistence internals |
+| Rendered UI coverage | Pass | `npm run test:ui` covers reset and handoff export flows against the Vite app shell |
 
 ## Bundle Outputs
 
@@ -29,10 +34,9 @@ This QA pass covers the Tauri desktop prototype with SQLite persistence.
 ## Residual Risks
 
 - Current persistence stores the sprint snapshot as JSON in SQLite. This is acceptable for Milestone 1 but should be normalized or migrated before multi-project/multi-sprint scale.
-- No automated tests yet for handoff generation or storage.
-- The local SQLite database contains a QA smoke-test task from verification unless reset later.
+- Rendered UI automation targets the Vite app shell, not the packaged Tauri window.
+- Debug build only; no signed release artifact yet.
 
 ## Recommendation
 
-Ready for Melih review as a first usable prototype. Do not push to GitHub until Melih approves publication and the private `company/` exclusion is rechecked.
-
+Milestone 1 remains internally accepted as a usable prototype. Public `main` is pushed with `company/` ignored; release signing/distribution remains future work.
