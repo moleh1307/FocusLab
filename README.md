@@ -20,6 +20,8 @@ Milestone 1, the Single-Sprint Focus Loop Prototype, is implemented and internal
 - local artifact/file links
 - Markdown handoff export
 - clipboard-ready next-chat prompt
+- guarded new-sprint reset
+- automated tests for handoff, lifecycle, storage serialization, and capture/reset transitions
 
 Debug bundle outputs are produced locally under:
 
@@ -113,5 +115,4 @@ That folder is intentionally ignored by git because it contains private local pl
 
 - Debug build only; no signed release artifact yet.
 - SQLite currently stores the sprint as a JSON snapshot. This is acceptable for `0.1.0` but should migrate before multi-project/multi-sprint scale.
-- Automated coverage currently focuses on handoff generation; UI and desktop persistence tests should be added next.
-
+- Automated coverage does not yet include rendered UI automation or direct desktop SQLite command tests.
