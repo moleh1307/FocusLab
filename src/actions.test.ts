@@ -6,7 +6,8 @@ import {
   resetSprintState,
   updateArtifactDescription,
   updateBlockerDetails,
-  updateDecisionDetails
+  updateDecisionDetails,
+  updateTaskDetails
 } from "./actions";
 import { createInitialState } from "./domain";
 
@@ -137,6 +138,25 @@ describe("artifact picker state transitions", () => {
 });
 
 describe("handoff detail state transitions", () => {
+  it("updates task notes and status for handoff context", () => {
+    let state = createInitialState();
+    state = applyCapture(state, "task: Finish implementation pass", testOptions()) ?? state;
+
+    const next = updateTaskDetails(
+      state,
+      "task_test",
+      { status: "active", notes: "Continue from artifact context polish." },
+      testOptions()
+    );
+
+    expect(next.tasks[0]).toMatchObject({
+      status: "active",
+      notes: "Continue from artifact context polish.",
+      updatedAt: now
+    });
+    expect(next.sprint.updatedAt).toBe(now);
+  });
+
   it("updates blocker needed-from and detail fields", () => {
     let state = createInitialState();
     state = applyCapture(state, "blocker: Waiting on API key", testOptions()) ?? state;

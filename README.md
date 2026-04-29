@@ -12,7 +12,7 @@ Milestone 1, the Single-Sprint Focus Loop Prototype, is implemented and internal
 - React + TypeScript UI
 - SQLite persistence
 - one active sprint
-- tasks
+- tasks with execution notes
 - first-class blockers
 - notes
 - decisions
@@ -22,7 +22,7 @@ Milestone 1, the Single-Sprint Focus Loop Prototype, is implemented and internal
 - Markdown handoff export
 - clipboard-ready next-chat prompt
 - guarded new-sprint reset
-- automated tests for handoff, lifecycle, storage serialization, capture/reset transitions, handoff detail editing, rendered UI flows, and SQLite persistence internals
+- automated tests for handoff, lifecycle, storage serialization, capture/reset transitions, handoff detail editing, task note export, rendered UI flows, and SQLite persistence internals
 
 Debug bundle outputs are produced locally under:
 

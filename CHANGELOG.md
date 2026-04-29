@@ -21,4 +21,5 @@
 - Added native file/folder picker actions for artifact links.
 - Added editable artifact descriptions so handoff exports explain why linked files/folders matter.
 - Added blocker and decision detail editing so readiness warnings can be resolved from the UI.
+- Added task execution notes so active/open task handoffs carry resume context.
 - Published the public GitHub baseline at `https://github.com/moleh1307/FocusLab`.

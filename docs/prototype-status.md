@@ -5,6 +5,7 @@
 - One active sprint workspace.
 - Quick capture input with `task:`, `blocker:`, `decision:`, `note:`, `progress:`, `risk:`, `idea:`, `artifact:`, and `state:` prefixes.
 - Task list with status and priority controls.
+- Task execution notes that appear in active-task context and Markdown handoffs.
 - First-class blockers, decisions, notes, and artifacts rails.
 - Handoff readiness warnings.
 - Markdown handoff preview.
@@ -37,9 +38,9 @@ Checked on 2026-04-28:
 - Desktop app rendered in a native Tauri window.
 - Desktop SQLite persistence smoke test passed after app restart.
 - First-run setup state rendered without project-specific seed data.
-- `npm test` covers handoff generation, first-run/reset lifecycle invariants, storage serialization, capture/reset state transitions, artifact description updates, and blocker/decision detail updates.
+- `npm test` covers handoff generation, first-run/reset lifecycle invariants, storage serialization, capture/reset state transitions, artifact description updates, task note updates, and blocker/decision detail updates.
 - `cargo test --manifest-path src-tauri/Cargo.toml` covers SQLite persistence internals.
-- `npm run test:ui` covers rendered reset, handoff export, artifact picker, artifact-description export, and blocker/decision detail flows in Chromium against the Vite app shell.
+- `npm run test:ui` covers rendered reset, handoff export, artifact picker, artifact-description export, task-note export, and blocker/decision detail flows in Chromium against the Vite app shell.
 
 ## Known Gaps
 

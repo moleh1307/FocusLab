@@ -115,3 +115,20 @@ test("edits blocker and decision details for readiness and handoff export", asyn
   await expect(dialog.getByText("Rationale: Snapshot persistence keeps local storage simple.")).toBeVisible();
   await expect(dialog.getByText("Impact: Schema normalization can wait.")).toBeVisible();
 });
+
+test("edits task execution notes for active-task context and handoff export", async ({ page }) => {
+  await page.getByPlaceholder("task: implement capture flow").fill("task: Finish task detail ergonomics");
+  await page.getByRole("button", { name: "Capture" }).click();
+
+  await page.getByLabel("Execution note for Finish task detail ergonomics").fill("Resume by checking the rendered handoff preview.");
+  await page.getByRole("combobox").nth(1).selectOption("active");
+
+  await expect(page.getByRole("heading", { name: "Finish task detail ergonomics" })).toBeVisible();
+  await expect(page.locator(".active-task").getByText("Resume by checking the rendered handoff preview.")).toBeVisible();
+
+  await page.getByRole("button", { name: "Handoff" }).click();
+
+  const dialog = page.getByRole("dialog");
+  await expect(dialog.getByText("Continue active task: Finish task detail ergonomics")).toBeVisible();
+  await expect(dialog.getByText("P1 Finish task detail ergonomics - Resume by checking the rendered handoff preview.")).toBeVisible();
+});

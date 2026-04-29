@@ -21,7 +21,8 @@ import {
   resetSprintState,
   updateArtifactDescription,
   updateBlockerDetails,
-  updateDecisionDetails
+  updateDecisionDetails,
+  updateTaskDetails
 } from "./actions";
 import { FocusLabState, nowIso, Priority, Status } from "./domain";
 import { generateMarkdownHandoff, generateNextChatPrompt, getReadinessWarnings } from "./handoff";
@@ -97,20 +98,8 @@ function App() {
     setCapture("");
   }
 
-  function updateTask(id: string, patch: Partial<{ status: Status; priority: Priority }>) {
-    updateState({
-      ...state,
-      tasks: state.tasks.map((task) =>
-        task.id === id
-          ? {
-              ...task,
-              ...patch,
-              completedAt: patch.status === "done" ? nowIso() : task.completedAt,
-              updatedAt: nowIso()
-            }
-          : task
-      )
-    });
+  function updateTask(id: string, patch: Parameters<typeof updateTaskDetails>[2]) {
+    setState(updateTaskDetails(state, id, patch));
   }
 
   function handleBlockerDetails(id: string, patch: Parameters<typeof updateBlockerDetails>[2]) {
@@ -270,6 +259,7 @@ function App() {
             <p className="eyebrow">Active task</p>
             <h2>{activeTask?.title || "No active task"}</h2>
             <p>{activeTask ? `${activeTask.priority} · ${activeTask.status}` : "Capture or activate a task to define the next action."}</p>
+            {activeTask?.notes ? <p className="active-task-note">{activeTask.notes}</p> : null}
           </section>
 
           <section className="panel wide-panel">
@@ -298,6 +288,13 @@ function App() {
                       ))}
                     </select>
                   </div>
+                  <textarea
+                    className="task-note"
+                    value={task.notes || ""}
+                    onChange={(event) => updateTask(task.id, { notes: event.target.value })}
+                    placeholder="Execution note for handoff"
+                    aria-label={`Execution note for ${task.title}`}
+                  />
                 </article>
               ))}
             </div>

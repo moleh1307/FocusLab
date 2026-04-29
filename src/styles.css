@@ -190,6 +190,11 @@ textarea {
   color: #c4cec8;
 }
 
+.active-task-note {
+  max-width: 68ch;
+  color: #e8e1d2;
+}
+
 .panel-title {
   display: flex;
   align-items: center;
@@ -266,6 +271,15 @@ label {
   align-items: center;
   gap: 16px;
   padding: 11px;
+}
+
+.task-note {
+  grid-column: 1 / -1;
+  min-height: 54px;
+  margin-top: -4px;
+  resize: vertical;
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .task-row strong,

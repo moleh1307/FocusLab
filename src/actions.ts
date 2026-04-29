@@ -1,4 +1,4 @@
-import { Artifact, Blocker, createId, createInitialState, Decision, FocusLabState, Note, nowIso } from "./domain";
+import { Artifact, Blocker, createId, createInitialState, Decision, FocusLabState, Note, nowIso, Task } from "./domain";
 
 type IdFactory = typeof createId;
 type TimeFactory = typeof nowIso;
@@ -120,6 +120,31 @@ export function updateDecisionDetails(
             ...patch
           }
         : decision
+    )
+  };
+}
+
+export function updateTaskDetails(
+  state: FocusLabState,
+  taskId: string,
+  patch: Partial<Pick<Task, "status" | "priority" | "notes">>,
+  options: { nowIso?: TimeFactory } = {}
+): FocusLabState {
+  const makeNow = options.nowIso ?? nowIso;
+  const now = makeNow();
+  const next = withUpdatedSprint(state, now);
+
+  return {
+    ...next,
+    tasks: state.tasks.map((task) =>
+      task.id === taskId
+        ? {
+            ...task,
+            ...patch,
+            completedAt: patch.status === "done" ? now : task.completedAt,
+            updatedAt: now
+          }
+        : task
     )
   };
 }
