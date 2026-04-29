@@ -15,7 +15,7 @@ import {
   ShieldAlert,
   Sparkles
 } from "lucide-react";
-import { addArtifactPath, applyCapture, resetSprintState } from "./actions";
+import { addArtifactPath, applyCapture, resetSprintState, updateArtifactDescription } from "./actions";
 import { FocusLabState, nowIso, Priority, Status } from "./domain";
 import { generateMarkdownHandoff, generateNextChatPrompt, getReadinessWarnings } from "./handoff";
 import { ArtifactPickerKind, pickArtifactPath } from "./picker";
@@ -129,6 +129,10 @@ function App() {
     } catch {
       setPickerError("Native picker is unavailable in this environment.");
     }
+  }
+
+  function handleArtifactDescription(artifactId: string, description: string) {
+    setState(updateArtifactDescription(state, artifactId, description));
   }
 
   async function copy(text: string) {
@@ -326,9 +330,16 @@ function App() {
             </div>
             {pickerError ? <p className="inline-warning">{pickerError}</p> : null}
             {state.artifacts.length === 0 ? <p className="empty-copy">No artifact paths linked.</p> : state.artifacts.map((artifact) => (
-              <article className="compact-item" key={artifact.id}>
+              <article className="compact-item artifact-item" key={artifact.id}>
                 <strong>{artifact.label}</strong>
                 <span>{artifact.path}</span>
+                <textarea
+                  className="artifact-description"
+                  value={artifact.description || ""}
+                  onChange={(event) => handleArtifactDescription(artifact.id, event.target.value)}
+                  placeholder="Why it matters"
+                  aria-label={`Why ${artifact.label} matters`}
+                />
               </article>
             ))}
           </RailSection>

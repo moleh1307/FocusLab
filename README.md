@@ -17,11 +17,11 @@ Milestone 1, the Single-Sprint Focus Loop Prototype, is implemented and internal
 - notes
 - decisions
 - milestones
-- local artifact/file links
+- local artifact/file links with handoff descriptions
 - Markdown handoff export
 - clipboard-ready next-chat prompt
 - guarded new-sprint reset
-- automated tests for handoff, lifecycle, storage serialization, capture/reset transitions, and SQLite persistence internals
+- automated tests for handoff, lifecycle, storage serialization, capture/reset transitions, artifact context, rendered UI flows, and SQLite persistence internals
 
 Debug bundle outputs are produced locally under:
 

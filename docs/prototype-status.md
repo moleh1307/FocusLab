@@ -17,6 +17,7 @@
 - Clean first-run state with editable sprint title, empty goal/current-state fields, and empty-section guidance.
 - Guarded New sprint action with an in-app confirmation for intentionally clearing the current local sprint state.
 - Native Add file and Add folder actions for artifact linking.
+- Editable artifact descriptions that appear in Markdown handoff exports.
 
 ## Verification
 
@@ -35,9 +36,9 @@ Checked on 2026-04-28:
 - Desktop app rendered in a native Tauri window.
 - Desktop SQLite persistence smoke test passed after app restart.
 - First-run setup state rendered without project-specific seed data.
-- `npm test` covers handoff generation, first-run/reset lifecycle invariants, storage serialization, and capture/reset state transitions.
+- `npm test` covers handoff generation, first-run/reset lifecycle invariants, storage serialization, capture/reset state transitions, and artifact description updates.
 - `cargo test --manifest-path src-tauri/Cargo.toml` covers SQLite persistence internals.
-- `npm run test:ui` covers rendered reset, handoff export, and artifact picker flows in Chromium against the Vite app shell.
+- `npm run test:ui` covers rendered reset, handoff export, artifact picker, and artifact-description export flows in Chromium against the Vite app shell.
 
 ## Known Gaps
 
@@ -45,4 +46,4 @@ Checked on 2026-04-28:
 
 ## Next Engineering Step
 
-Add lightweight UI automation for reset/export flows after choosing the right dependency boundary.
+Continue improving handoff quality around task/blocker/decision context while keeping the one-sprint prototype lightweight.

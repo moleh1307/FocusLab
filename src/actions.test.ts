@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { addArtifactPath, applyCapture, labelFromPath, resetSprintState } from "./actions";
+import { addArtifactPath, applyCapture, labelFromPath, resetSprintState, updateArtifactDescription } from "./actions";
 import { createInitialState } from "./domain";
 
 const now = "2026-04-29T06:45:00.000Z";
@@ -113,5 +113,17 @@ describe("artifact picker state transitions", () => {
     const state = createInitialState();
 
     expect(addArtifactPath(state, "  ", "file", testOptions())).toBeNull();
+  });
+
+  it("updates artifact descriptions for handoff context", () => {
+    let state = createInitialState();
+    state = addArtifactPath(state, "/Users/melih/project/report.md", "file", testOptions()) ?? state;
+
+    const next = updateArtifactDescription(state, "artifact_test", "Final QA report used for the handoff.", testOptions());
+
+    expect(next.artifacts[0]).toMatchObject({
+      description: "Final QA report used for the handoff."
+    });
+    expect(next.sprint.updatedAt).toBe(now);
   });
 });

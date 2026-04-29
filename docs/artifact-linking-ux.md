@@ -37,7 +37,7 @@ Both actions should open a native picker. After the user selects a path:
 2. `label` defaults to the file or folder basename.
 3. `path` stores the exact selected local path.
 4. `kind` is `file` or `folder`.
-5. `description` remains empty until edited later.
+5. `description` can be edited inline to explain why the artifact matters.
 6. The artifact appears at the top of the Artifacts rail.
 7. The handoff export includes the exact path.
 
@@ -90,4 +90,5 @@ FocusLab should store the selected path only. It should not inspect file content
 - Canceling either picker leaves state unchanged.
 - Existing `artifact:` capture still works.
 - Handoff output preserves exact paths.
+- Artifact descriptions appear in handoff output as the "Why it matters" detail.
 - Playwright coverage uses a mocked picker seam rather than opening native OS dialogs.

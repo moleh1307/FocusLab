@@ -299,6 +299,19 @@ label {
   padding: 10px;
 }
 
+.artifact-item {
+  display: grid;
+  gap: 8px;
+}
+
+.artifact-description {
+  min-height: 58px;
+  margin-top: 2px;
+  resize: vertical;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
 .export-overlay {
   position: fixed;
   inset: 0;

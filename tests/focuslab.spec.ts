@@ -66,3 +66,24 @@ test("adds file and folder artifacts through the picker seam", async ({ page }) 
   await expect(page.getByText("output", { exact: true })).toBeVisible();
   await expect(page.getByText("/Users/melih/project/output")).toBeVisible();
 });
+
+test("includes artifact descriptions in the handoff export", async ({ page }) => {
+  await page.addInitScript(() => {
+    const focusLabWindow = window as Window & {
+      __focusLabPickArtifact?: () => Promise<string | null>;
+    };
+
+    focusLabWindow.__focusLabPickArtifact = async () => "/Users/melih/project/report.md";
+  });
+  await page.goto("/");
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+
+  await page.getByRole("button", { name: "Add file" }).click();
+  await page.getByLabel("Why report.md matters").fill("Use this report as the source of truth for QA status.");
+  await page.getByRole("button", { name: "Handoff" }).click();
+
+  const dialog = page.getByRole("dialog");
+  await expect(dialog.getByText("report.md: `/Users/melih/project/report.md`")).toBeVisible();
+  await expect(dialog.getByText("Why it matters: Use this report as the source of truth for QA status.")).toBeVisible();
+});

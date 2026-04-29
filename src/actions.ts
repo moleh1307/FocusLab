@@ -55,6 +55,29 @@ export function addArtifactPath(
   };
 }
 
+export function updateArtifactDescription(
+  state: FocusLabState,
+  artifactId: string,
+  description: string,
+  options: { nowIso?: TimeFactory } = {}
+): FocusLabState {
+  const makeNow = options.nowIso ?? nowIso;
+  const now = makeNow();
+  const next = withUpdatedSprint(state, now);
+
+  return {
+    ...next,
+    artifacts: state.artifacts.map((artifact) =>
+      artifact.id === artifactId
+        ? {
+            ...artifact,
+            description
+          }
+        : artifact
+    )
+  };
+}
+
 export function applyCapture(
   state: FocusLabState,
   rawCapture: string,
