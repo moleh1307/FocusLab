@@ -78,6 +78,9 @@ function App() {
   const prompt = useMemo(() => generateNextChatPrompt(state), [state]);
   const filteredTasks = state.tasks.filter((task) => task.title.toLowerCase().includes(search.toLowerCase()));
   const activeTask = state.tasks.find((task) => task.status === "active");
+  const openTasks = state.tasks.filter((task) => task.status !== "done" && task.status !== "dropped");
+  const completedTasks = state.tasks.filter((task) => task.status === "done");
+  const readinessLabel = warnings.length === 0 ? "Ready" : `${warnings.length} gap${warnings.length === 1 ? "" : "s"}`;
 
   function updateState(next: FocusLabState) {
     setState({
@@ -156,12 +159,13 @@ function App() {
   return (
     <main className="app-shell">
       <header className="top-bar">
-        <div>
+        <div className="title-stack">
           <p className="eyebrow">FocusLab</p>
           <h1>{state.sprint.title || "Untitled sprint"}</h1>
+          <p className="subtitle">Local sprint cockpit for clean JARVIS/Codex handoffs</p>
         </div>
         <div className="top-actions">
-          <span className="status-pill">{state.sprint.status}</span>
+          <span className="status-pill"><span aria-hidden="true" />{state.sprint.status}</span>
           <button onClick={handleNewSprint}>
             <RotateCcw size={16} />
             New sprint
@@ -182,6 +186,25 @@ function App() {
         />
         <button type="submit">Capture</button>
       </form>
+
+      <section className="signal-strip" aria-label="Sprint signals">
+        <div className="signal-card">
+          <span>Readiness</span>
+          <strong>{readinessLabel}</strong>
+        </div>
+        <div className="signal-card">
+          <span>Open tasks</span>
+          <strong>{openTasks.length}</strong>
+        </div>
+        <div className="signal-card">
+          <span>Blockers</span>
+          <strong>{state.blockers.length}</strong>
+        </div>
+        <div className="signal-card">
+          <span>Completed</span>
+          <strong>{completedTasks.length}</strong>
+        </div>
+      </section>
 
       <section className="workspace-grid">
         <aside className="left-rail">
@@ -239,6 +262,10 @@ function App() {
               <ListChecks size={16} />
               Handoff readiness
             </div>
+            <div className={warnings.length === 0 ? "readiness-meter ready" : "readiness-meter needs-work"}>
+              <strong>{readinessLabel}</strong>
+              <span>{warnings.length === 0 ? "All required context is present." : "Resolve these before a stronger handoff."}</span>
+            </div>
             {warnings.length === 0 ? (
               <p className="positive"><CheckCircle2 size={16} /> Ready to export</p>
             ) : (
@@ -255,10 +282,17 @@ function App() {
         </aside>
 
         <section className="execution-lane">
-          <section className="active-task">
+          <section className={activeTask ? "active-task has-active" : "active-task"}>
             <p className="eyebrow">Active task</p>
             <h2>{activeTask?.title || "No active task"}</h2>
-            <p>{activeTask ? `${activeTask.priority} · ${activeTask.status}` : "Capture or activate a task to define the next action."}</p>
+            {activeTask ? (
+              <div className="task-meta">
+                <span>{activeTask.priority}</span>
+                <span>{activeTask.status}</span>
+              </div>
+            ) : (
+              <p>Capture or activate a task to define the next action.</p>
+            )}
             {activeTask?.notes ? <p className="active-task-note">{activeTask.notes}</p> : null}
           </section>
 
@@ -266,6 +300,7 @@ function App() {
             <div className="panel-title">
               <ListChecks size={16} />
               Tasks
+              <span className="count-badge">{filteredTasks.length}</span>
             </div>
             <div className="task-list">
               {filteredTasks.length === 0 ? (
@@ -302,7 +337,7 @@ function App() {
         </section>
 
         <aside className="right-rail">
-          <RailSection icon={<ShieldAlert size={16} />} title="Blockers">
+          <RailSection count={state.blockers.length} icon={<ShieldAlert size={16} />} title="Blockers">
             {state.blockers.length === 0 ? <p className="empty-copy">No blockers captured.</p> : state.blockers.map((blocker) => (
               <article className="compact-item detail-item" key={blocker.id}>
                 <strong>{blocker.title}</strong>
@@ -324,7 +359,7 @@ function App() {
             ))}
           </RailSection>
 
-          <RailSection icon={<CheckCircle2 size={16} />} title="Decisions">
+          <RailSection count={state.decisions.length} icon={<CheckCircle2 size={16} />} title="Decisions">
             {state.decisions.length === 0 ? <p className="empty-copy">No decisions captured.</p> : state.decisions.map((decision) => (
               <article className="compact-item detail-item" key={decision.id}>
                 <strong>{decision.title}</strong>
@@ -353,7 +388,7 @@ function App() {
             ))}
           </RailSection>
 
-          <RailSection icon={<FileText size={16} />} title="Notes">
+          <RailSection count={state.notes.length} icon={<FileText size={16} />} title="Notes">
             {state.notes.length === 0 ? <p className="empty-copy">No notes captured.</p> : state.notes.map((note) => (
               <article className="compact-item" key={note.id}>
                 <strong>{note.kind}</strong>
@@ -362,7 +397,7 @@ function App() {
             ))}
           </RailSection>
 
-          <RailSection icon={<FolderOpen size={16} />} title="Artifacts">
+          <RailSection count={state.artifacts.length} icon={<FolderOpen size={16} />} title="Artifacts">
             <div className="artifact-actions">
               <button onClick={() => handlePickArtifact("file")}>
                 <FileText size={16} />
@@ -454,12 +489,13 @@ function App() {
   );
 }
 
-function RailSection({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
+function RailSection({ count, icon, title, children }: { count: number; icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
     <section className="panel rail-section">
       <div className="panel-title">
         {icon}
         {title}
+        <span className="count-badge">{count}</span>
       </div>
       <div className="rail-stack">{children}</div>
     </section>

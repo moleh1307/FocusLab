@@ -8,6 +8,7 @@
 - Task execution notes that appear in active-task context and Markdown handoffs.
 - First-class blockers, decisions, notes, and artifacts rails.
 - Handoff readiness warnings.
+- Sprint signal metrics for readiness, open tasks, blockers, and completed work.
 - Markdown handoff preview.
 - Visible clipboard-ready next-chat prompt preview and copy.
 - Markdown copy and save actions.
@@ -20,6 +21,7 @@
 - Native Add file and Add folder actions for artifact linking.
 - Editable artifact descriptions that appear in Markdown handoff exports.
 - Editable blocker needed-from/detail and decision context/rationale/impact fields.
+- Refined dark operations-cockpit visual system with stronger hierarchy, count badges, focus states, and export modal polish.
 
 ## Verification
 
@@ -42,6 +44,7 @@ Checked through 2026-04-29:
 - `cargo test --manifest-path src-tauri/Cargo.toml` covers SQLite persistence internals.
 - `npm run test:ui` covers rendered reset, prompt/Markdown handoff export, artifact picker, artifact-description export, task-note export, and blocker/decision detail flows in Chromium against the Vite app shell.
 - Packaged debug app smoke checks passed for reset, native artifact picker rendering, artifact descriptions, blocker/decision details, task execution notes, and visible prompt/Markdown handoff preview layout. Temporary QA data was reset after each packaged smoke.
+- Rendered visual QA checked the refined cockpit at desktop and narrow widths, with representative content and export modal states.
 
 ## Known Gaps
 
