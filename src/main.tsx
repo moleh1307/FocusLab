@@ -14,7 +14,8 @@ import {
   ShieldAlert,
   Sparkles
 } from "lucide-react";
-import { createId, createInitialState, FocusLabState, nowIso, Priority, Status } from "./domain";
+import { applyCapture, resetSprintState } from "./actions";
+import { FocusLabState, nowIso, Priority, Status } from "./domain";
 import { generateMarkdownHandoff, generateNextChatPrompt, getReadinessWarnings } from "./handoff";
 import { loadFallbackState, loadPersistedState, saveFallbackState, savePersistedState } from "./storage";
 import "./styles.css";
@@ -79,99 +80,10 @@ function App() {
 
   function handleCapture(event: React.FormEvent) {
     event.preventDefault();
-    const text = capture.trim();
-    if (!text) return;
+    const next = applyCapture(state, capture);
+    if (!next) return;
 
-    const now = nowIso();
-    const [rawPrefix, ...rest] = text.split(":");
-    const prefix = rest.length ? rawPrefix.toLowerCase().trim() : "task";
-    const body = rest.length ? rest.join(":").trim() : text;
-
-    if (prefix === "blocker") {
-      updateState({
-        ...state,
-        blockers: [
-          {
-            id: createId("blocker"),
-            title: body,
-            status: "open",
-            neededFrom: "",
-            description: "",
-            createdAt: now
-          },
-          ...state.blockers
-        ]
-      });
-    } else if (prefix === "decision") {
-      updateState({
-        ...state,
-        decisions: [
-          {
-            id: createId("decision"),
-            title: body,
-            context: "",
-            decision: body,
-            rationale: "",
-            impact: "",
-            createdAt: now
-          },
-          ...state.decisions
-        ]
-      });
-    } else if (prefix === "note" || prefix === "progress" || prefix === "risk" || prefix === "idea") {
-      updateState({
-        ...state,
-        notes: [
-          {
-            id: createId("note"),
-            kind: prefix === "progress" || prefix === "risk" || prefix === "idea" ? prefix : "note",
-            body,
-            createdAt: now
-          },
-          ...state.notes
-        ]
-      });
-    } else if (prefix === "artifact") {
-      const [label, path] = body.includes("|") ? body.split("|").map((part) => part.trim()) : ["Artifact", body];
-      updateState({
-        ...state,
-        artifacts: [
-          {
-            id: createId("artifact"),
-            label,
-            path,
-            kind: "file",
-            description: "",
-            createdAt: now
-          },
-          ...state.artifacts
-        ]
-      });
-    } else if (prefix === "state") {
-      updateState({
-        ...state,
-        sprint: {
-          ...state.sprint,
-          currentState: body
-        }
-      });
-    } else {
-      updateState({
-        ...state,
-        tasks: [
-          {
-            id: createId("task"),
-            title: body,
-            status: "todo",
-            priority: "P1",
-            createdAt: now,
-            updatedAt: now
-          },
-          ...state.tasks
-        ]
-      });
-    }
-
+    setState(next);
     setCapture("");
   }
 
@@ -196,7 +108,7 @@ function App() {
   }
 
   function confirmNewSprint() {
-    setState(createInitialState());
+    setState(resetSprintState());
     setShowResetConfirm(false);
   }
 

@@ -34,7 +34,7 @@ Checked on 2026-04-28:
 - Desktop app rendered in a native Tauri window.
 - Desktop SQLite persistence smoke test passed after app restart.
 - First-run setup state rendered without project-specific seed data.
-- `npm test` covers handoff generation, first-run/reset lifecycle invariants, and storage serialization fallback/round-trip behavior.
+- `npm test` covers handoff generation, first-run/reset lifecycle invariants, storage serialization, and capture/reset state transitions.
 
 ## Known Gaps
 
