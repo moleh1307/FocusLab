@@ -23,7 +23,7 @@
 
 ## Verification
 
-Checked on 2026-04-28:
+Checked through 2026-04-29:
 
 - `npm run build` passes.
 - `npm audit --audit-level=moderate` reports zero vulnerabilities.
@@ -41,11 +41,13 @@ Checked on 2026-04-28:
 - `npm test` covers handoff generation, first-run/reset lifecycle invariants, storage serialization, capture/reset state transitions, artifact description updates, task note updates, and blocker/decision detail updates.
 - `cargo test --manifest-path src-tauri/Cargo.toml` covers SQLite persistence internals.
 - `npm run test:ui` covers rendered reset, prompt/Markdown handoff export, artifact picker, artifact-description export, task-note export, and blocker/decision detail flows in Chromium against the Vite app shell.
+- Packaged debug app smoke checks passed for reset, native artifact picker rendering, artifact descriptions, blocker/decision details, task execution notes, and visible prompt/Markdown handoff preview layout. Temporary QA data was reset after each packaged smoke.
 
 ## Known Gaps
 
 - Rendered UI automation targets the Vite app shell, not the packaged Tauri window.
+- Debug bundle only; no signed/notarized release artifact has been created.
 
 ## Next Engineering Step
 
-Continue improving active sprint ergonomics while keeping the one-sprint prototype lightweight.
+Refresh release readiness and owner-review criteria before adding more prototype polish.

@@ -2,6 +2,8 @@
 
 Status: preparatory checklist only. No release, tag, signing, notarization, upload, or distribution has been performed.
 
+Last reviewed: 2026-04-29 after visible next-chat prompt preview polish.
+
 ## Current Candidate
 
 - Version: `0.1.0`
@@ -35,10 +37,16 @@ npm run tauri -- build --debug
 - Launch the debug `.app`.
 - Confirm first-run state is blank and generic.
 - Capture a task, blocker, decision, note, artifact, and current state.
-- Open Handoff and verify Fresh-Chat Starter, Exact Next Action, open tasks, blockers, decisions, and artifact paths.
+- Open Handoff and verify the visible next-chat prompt, Markdown handoff, Fresh-Chat Starter, Exact Next Action, open tasks, blockers, decisions, and artifact paths.
 - Verify New sprint cancel preserves data.
 - Verify New sprint clear resets to blank first-run state.
 - Confirm no cloud, telemetry, remote sync, or automatic JARVIS vault mutation exists.
+
+## Internal Prototype Acceptance
+
+Milestone 1 remains internally accepted as a local debug prototype for one real JARVIS/Codex sprint. The latest evidence includes automated unit coverage, rendered Chromium UI coverage, Rust SQLite persistence tests, debug Tauri builds, and packaged debug-app smoke checks for the handoff-critical flows.
+
+This is not a public release acceptance. The release blockers below still apply before any signed, notarized, tagged, uploaded, or broadly distributed build.
 
 ## Public Release Blockers
 

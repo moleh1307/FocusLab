@@ -6,7 +6,7 @@ Updated: 2026-04-29
 
 ## Scope
 
-This QA pass originally covered the Tauri desktop prototype with SQLite persistence. The update records the current automated coverage added after the initial desktop smoke pass.
+This QA pass originally covered the Tauri desktop prototype with SQLite persistence. The update records the current automated coverage and packaged smoke evidence added after the initial desktop pass.
 
 ## Results
 
@@ -21,10 +21,11 @@ This QA pass originally covered the Tauri desktop prototype with SQLite persiste
 | SQLite creation | Pass | Created `~/Library/Application Support/FocusLab/focuslab.sqlite` |
 | SQLite write | Pass | `app_state` row exists with persisted sprint JSON |
 | Restart persistence | Pass | QA smoke-test task survived app quit/reopen |
-| Handoff preview | Pass | Desktop handoff preview opens with Fresh-Chat Starter and Exact Next Action |
-| Automated unit coverage | Pass | `npm test` covers handoff, lifecycle, storage serialization, and capture/reset state transitions |
+| Handoff preview | Pass | Desktop handoff preview opens with visible next-chat prompt, Markdown handoff, Fresh-Chat Starter, and Exact Next Action |
+| Automated unit coverage | Pass | `npm test` covers handoff, lifecycle, storage serialization, capture/reset state transitions, artifact descriptions, task notes, and blocker/decision details |
 | Rust persistence coverage | Pass | `cargo test --manifest-path src-tauri/Cargo.toml` covers SQLite persistence internals |
-| Rendered UI coverage | Pass | `npm run test:ui` covers reset and handoff export flows against the Vite app shell |
+| Rendered UI coverage | Pass | `npm run test:ui` covers reset, prompt/Markdown handoff export, artifact picker seam, artifact descriptions, task notes, and blocker/decision detail flows against the Vite app shell |
+| Packaged smoke coverage | Pass | Debug `.app` smoke checks passed for reset, artifact picker rendering, artifact descriptions, blocker/decision details, task notes, and visible prompt/Markdown handoff preview layout |
 
 ## Bundle Outputs
 
@@ -39,4 +40,4 @@ This QA pass originally covered the Tauri desktop prototype with SQLite persiste
 
 ## Recommendation
 
-Milestone 1 remains internally accepted as a usable prototype. Public `main` is pushed with `company/` ignored; release signing/distribution remains future work.
+Milestone 1 remains internally accepted as a usable local debug prototype. Public `main` is pushed with `company/` ignored; release signing, notarization, tagging, and distribution remain future work requiring an explicit release decision.
