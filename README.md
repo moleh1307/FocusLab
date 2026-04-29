@@ -116,6 +116,7 @@ That folder is intentionally ignored by git because it contains private local pl
 - [Prototype Status](docs/prototype-status.md)
 - [Web-Shell QA Report](docs/qa-web-shell.md)
 - [Desktop QA Report](docs/qa-desktop.md)
+- [Release Readiness](docs/release-readiness.md)
 
 ## Known Limitations
 
