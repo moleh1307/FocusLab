@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { addArtifactPath, applyCapture, labelFromPath, resetSprintState, updateArtifactDescription } from "./actions";
+import {
+  addArtifactPath,
+  applyCapture,
+  labelFromPath,
+  resetSprintState,
+  updateArtifactDescription,
+  updateBlockerDetails,
+  updateDecisionDetails
+} from "./actions";
 import { createInitialState } from "./domain";
 
 const now = "2026-04-29T06:45:00.000Z";
@@ -123,6 +131,49 @@ describe("artifact picker state transitions", () => {
 
     expect(next.artifacts[0]).toMatchObject({
       description: "Final QA report used for the handoff."
+    });
+    expect(next.sprint.updatedAt).toBe(now);
+  });
+});
+
+describe("handoff detail state transitions", () => {
+  it("updates blocker needed-from and detail fields", () => {
+    let state = createInitialState();
+    state = applyCapture(state, "blocker: Waiting on API key", testOptions()) ?? state;
+
+    const next = updateBlockerDetails(
+      state,
+      "blocker_test",
+      { neededFrom: "Platform owner", description: "Need a local-only test credential." },
+      testOptions()
+    );
+
+    expect(next.blockers[0]).toMatchObject({
+      neededFrom: "Platform owner",
+      description: "Need a local-only test credential."
+    });
+    expect(next.sprint.updatedAt).toBe(now);
+  });
+
+  it("updates decision context, rationale, and impact fields", () => {
+    let state = createInitialState();
+    state = applyCapture(state, "decision: Keep SQLite snapshot storage", testOptions()) ?? state;
+
+    const next = updateDecisionDetails(
+      state,
+      "decision_test",
+      {
+        context: "v1 only needs one active sprint.",
+        rationale: "Snapshot persistence is reliable and simple.",
+        impact: "Normalized tables can wait for multi-sprint scale."
+      },
+      testOptions()
+    );
+
+    expect(next.decisions[0]).toMatchObject({
+      context: "v1 only needs one active sprint.",
+      rationale: "Snapshot persistence is reliable and simple.",
+      impact: "Normalized tables can wait for multi-sprint scale."
     });
     expect(next.sprint.updatedAt).toBe(now);
   });

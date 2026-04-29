@@ -15,7 +15,14 @@ import {
   ShieldAlert,
   Sparkles
 } from "lucide-react";
-import { addArtifactPath, applyCapture, resetSprintState, updateArtifactDescription } from "./actions";
+import {
+  addArtifactPath,
+  applyCapture,
+  resetSprintState,
+  updateArtifactDescription,
+  updateBlockerDetails,
+  updateDecisionDetails
+} from "./actions";
 import { FocusLabState, nowIso, Priority, Status } from "./domain";
 import { generateMarkdownHandoff, generateNextChatPrompt, getReadinessWarnings } from "./handoff";
 import { ArtifactPickerKind, pickArtifactPath } from "./picker";
@@ -104,6 +111,14 @@ function App() {
           : task
       )
     });
+  }
+
+  function handleBlockerDetails(id: string, patch: Parameters<typeof updateBlockerDetails>[2]) {
+    setState(updateBlockerDetails(state, id, patch));
+  }
+
+  function handleDecisionDetails(id: string, patch: Parameters<typeof updateDecisionDetails>[2]) {
+    setState(updateDecisionDetails(state, id, patch));
   }
 
   function handleNewSprint() {
@@ -292,18 +307,51 @@ function App() {
         <aside className="right-rail">
           <RailSection icon={<ShieldAlert size={16} />} title="Blockers">
             {state.blockers.length === 0 ? <p className="empty-copy">No blockers captured.</p> : state.blockers.map((blocker) => (
-              <article className="compact-item" key={blocker.id}>
+              <article className="compact-item detail-item" key={blocker.id}>
                 <strong>{blocker.title}</strong>
-                <span>{blocker.neededFrom || "Needed from not set"}</span>
+                <input
+                  className="detail-input"
+                  value={blocker.neededFrom || ""}
+                  onChange={(event) => handleBlockerDetails(blocker.id, { neededFrom: event.target.value })}
+                  placeholder="Needed from"
+                  aria-label={`Needed from for ${blocker.title}`}
+                />
+                <textarea
+                  className="detail-textarea"
+                  value={blocker.description || ""}
+                  onChange={(event) => handleBlockerDetails(blocker.id, { description: event.target.value })}
+                  placeholder="Detail"
+                  aria-label={`Detail for ${blocker.title}`}
+                />
               </article>
             ))}
           </RailSection>
 
           <RailSection icon={<CheckCircle2 size={16} />} title="Decisions">
             {state.decisions.length === 0 ? <p className="empty-copy">No decisions captured.</p> : state.decisions.map((decision) => (
-              <article className="compact-item" key={decision.id}>
+              <article className="compact-item detail-item" key={decision.id}>
                 <strong>{decision.title}</strong>
-                <span>{decision.rationale || "Rationale not captured"}</span>
+                <textarea
+                  className="detail-textarea"
+                  value={decision.context}
+                  onChange={(event) => handleDecisionDetails(decision.id, { context: event.target.value })}
+                  placeholder="Context"
+                  aria-label={`Context for ${decision.title}`}
+                />
+                <textarea
+                  className="detail-textarea"
+                  value={decision.rationale || ""}
+                  onChange={(event) => handleDecisionDetails(decision.id, { rationale: event.target.value })}
+                  placeholder="Rationale"
+                  aria-label={`Rationale for ${decision.title}`}
+                />
+                <textarea
+                  className="detail-textarea"
+                  value={decision.impact || ""}
+                  onChange={(event) => handleDecisionDetails(decision.id, { impact: event.target.value })}
+                  placeholder="Impact"
+                  aria-label={`Impact for ${decision.title}`}
+                />
               </article>
             ))}
           </RailSection>

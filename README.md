@@ -16,12 +16,13 @@ Milestone 1, the Single-Sprint Focus Loop Prototype, is implemented and internal
 - first-class blockers
 - notes
 - decisions
+- editable blocker and decision handoff details
 - milestones
 - local artifact/file links with handoff descriptions
 - Markdown handoff export
 - clipboard-ready next-chat prompt
 - guarded new-sprint reset
-- automated tests for handoff, lifecycle, storage serialization, capture/reset transitions, artifact context, rendered UI flows, and SQLite persistence internals
+- automated tests for handoff, lifecycle, storage serialization, capture/reset transitions, handoff detail editing, rendered UI flows, and SQLite persistence internals
 
 Debug bundle outputs are produced locally under:
 

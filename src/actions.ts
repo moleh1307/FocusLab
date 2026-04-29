@@ -1,4 +1,4 @@
-import { Artifact, createId, createInitialState, FocusLabState, Note, nowIso } from "./domain";
+import { Artifact, Blocker, createId, createInitialState, Decision, FocusLabState, Note, nowIso } from "./domain";
 
 type IdFactory = typeof createId;
 type TimeFactory = typeof nowIso;
@@ -74,6 +74,52 @@ export function updateArtifactDescription(
             description
           }
         : artifact
+    )
+  };
+}
+
+export function updateBlockerDetails(
+  state: FocusLabState,
+  blockerId: string,
+  patch: Partial<Pick<Blocker, "neededFrom" | "description">>,
+  options: { nowIso?: TimeFactory } = {}
+): FocusLabState {
+  const makeNow = options.nowIso ?? nowIso;
+  const now = makeNow();
+  const next = withUpdatedSprint(state, now);
+
+  return {
+    ...next,
+    blockers: state.blockers.map((blocker) =>
+      blocker.id === blockerId
+        ? {
+            ...blocker,
+            ...patch
+          }
+        : blocker
+    )
+  };
+}
+
+export function updateDecisionDetails(
+  state: FocusLabState,
+  decisionId: string,
+  patch: Partial<Pick<Decision, "context" | "rationale" | "impact">>,
+  options: { nowIso?: TimeFactory } = {}
+): FocusLabState {
+  const makeNow = options.nowIso ?? nowIso;
+  const now = makeNow();
+  const next = withUpdatedSprint(state, now);
+
+  return {
+    ...next,
+    decisions: state.decisions.map((decision) =>
+      decision.id === decisionId
+        ? {
+            ...decision,
+            ...patch
+          }
+        : decision
     )
   };
 }

@@ -87,3 +87,31 @@ test("includes artifact descriptions in the handoff export", async ({ page }) =>
   await expect(dialog.getByText("report.md: `/Users/melih/project/report.md`")).toBeVisible();
   await expect(dialog.getByText("Why it matters: Use this report as the source of truth for QA status.")).toBeVisible();
 });
+
+test("edits blocker and decision details for readiness and handoff export", async ({ page }) => {
+  await page.getByPlaceholder("task: implement capture flow").fill("blocker: Waiting on API key");
+  await page.getByRole("button", { name: "Capture" }).click();
+  await expect(page.getByText("Open blocker without needed-from")).toBeVisible();
+
+  await page.getByLabel("Needed from for Waiting on API key").fill("Platform owner");
+  await page.getByLabel("Detail for Waiting on API key").fill("Need a local-only credential for the smoke test.");
+  await expect(page.getByText("Open blocker without needed-from")).toBeHidden();
+
+  await page.getByPlaceholder("task: implement capture flow").fill("decision: Keep SQLite snapshot storage");
+  await page.getByRole("button", { name: "Capture" }).click();
+  await expect(page.getByText("Decision without rationale")).toBeVisible();
+
+  await page.getByLabel("Context for Keep SQLite snapshot storage").fill("v1 has one active sprint.");
+  await page.getByLabel("Rationale for Keep SQLite snapshot storage").fill("Snapshot persistence keeps local storage simple.");
+  await page.getByLabel("Impact for Keep SQLite snapshot storage").fill("Schema normalization can wait.");
+  await expect(page.getByText("Decision without rationale")).toBeHidden();
+
+  await page.getByRole("button", { name: "Handoff" }).click();
+
+  const dialog = page.getByRole("dialog");
+  await expect(dialog.getByText("Needed from: Platform owner")).toBeVisible();
+  await expect(dialog.getByText("Detail: Need a local-only credential for the smoke test.")).toBeVisible();
+  await expect(dialog.getByText("Context: v1 has one active sprint.")).toBeVisible();
+  await expect(dialog.getByText("Rationale: Snapshot persistence keeps local storage simple.")).toBeVisible();
+  await expect(dialog.getByText("Impact: Schema normalization can wait.")).toBeVisible();
+});

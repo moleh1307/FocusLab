@@ -312,6 +312,34 @@ label {
   line-height: 1.4;
 }
 
+.detail-item {
+  display: grid;
+  gap: 8px;
+}
+
+.detail-input,
+.detail-textarea {
+  width: 100%;
+  border: 1px solid rgba(244, 241, 232, 0.11);
+  border-radius: 7px;
+  color: #f4f1e8;
+  background: #111513;
+  font-size: 13px;
+}
+
+.detail-input {
+  min-height: 34px;
+  padding: 0 10px;
+}
+
+.detail-textarea {
+  min-height: 52px;
+  margin-top: 0;
+  padding: 9px;
+  resize: vertical;
+  line-height: 1.4;
+}
+
 .export-overlay {
   position: fixed;
   inset: 0;
