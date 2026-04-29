@@ -9,7 +9,7 @@
 - First-class blockers, decisions, notes, and artifacts rails.
 - Handoff readiness warnings.
 - Markdown handoff preview.
-- Clipboard-ready next-chat prompt copy.
+- Visible clipboard-ready next-chat prompt preview and copy.
 - Markdown copy and save actions.
 - Browser local persistence for development preview.
 - Tauri desktop shell.
@@ -40,7 +40,7 @@ Checked on 2026-04-28:
 - First-run setup state rendered without project-specific seed data.
 - `npm test` covers handoff generation, first-run/reset lifecycle invariants, storage serialization, capture/reset state transitions, artifact description updates, task note updates, and blocker/decision detail updates.
 - `cargo test --manifest-path src-tauri/Cargo.toml` covers SQLite persistence internals.
-- `npm run test:ui` covers rendered reset, handoff export, artifact picker, artifact-description export, task-note export, and blocker/decision detail flows in Chromium against the Vite app shell.
+- `npm run test:ui` covers rendered reset, prompt/Markdown handoff export, artifact picker, artifact-description export, task-note export, and blocker/decision detail flows in Chromium against the Vite app shell.
 
 ## Known Gaps
 

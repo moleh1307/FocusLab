@@ -437,7 +437,16 @@ function App() {
                 Save Markdown
               </button>
             </div>
-            <pre>{handoff}</pre>
+            <div className="export-previews">
+              <section className="preview-block">
+                <div className="preview-label">Next-chat prompt</div>
+                <pre>{prompt}</pre>
+              </section>
+              <section className="preview-block">
+                <div className="preview-label">Markdown handoff</div>
+                <pre>{handoff}</pre>
+              </section>
+            </div>
           </div>
         </section>
       )}

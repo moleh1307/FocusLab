@@ -416,11 +416,28 @@ label {
   border-color: rgba(241, 154, 154, 0.66);
 }
 
+.export-previews {
+  display: grid;
+  max-height: 62vh;
+  overflow: auto;
+}
+
+.preview-block + .preview-block {
+  border-top: 1px solid rgba(244, 241, 232, 0.1);
+}
+
+.preview-label {
+  padding: 12px 18px 0;
+  color: #9ccbb7;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
 pre {
-  max-height: 58vh;
   margin: 0;
   padding: 18px;
-  overflow: auto;
   color: #e8e1d2;
   background: #0f1211;
   font-size: 13px;

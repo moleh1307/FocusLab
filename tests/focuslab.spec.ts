@@ -36,10 +36,18 @@ test("renders a fresh-chat handoff export from captured sprint state", async ({ 
   await page.getByRole("button", { name: "Handoff" }).click();
 
   const dialog = page.getByRole("dialog");
+  const promptPreview = dialog.locator(".preview-block").first();
+  const markdownPreview = dialog.locator(".preview-block").nth(1);
+
   await expect(dialog.getByRole("heading", { name: "Fresh-chat handoff" })).toBeVisible();
-  await expect(dialog.getByText("## Fresh-Chat Starter")).toBeVisible();
-  await expect(dialog.getByText("## Exact Next Action")).toBeVisible();
-  await expect(dialog.getByText("Start next task: Finish rendered export test")).toBeVisible();
+  await expect(dialog.getByText("Next-chat prompt")).toBeVisible();
+  await expect(promptPreview.getByText("Use JARVIS and continue this FocusLab sprint from the handoff below.")).toBeVisible();
+  await expect(promptPreview.getByText("Project: Playwright handoff sprint")).toBeVisible();
+  await expect(promptPreview.getByText("Exact next action: Start next task: Finish rendered export test")).toBeVisible();
+  await expect(dialog.getByText("Markdown handoff", { exact: true })).toBeVisible();
+  await expect(markdownPreview.getByText("## Fresh-Chat Starter")).toBeVisible();
+  await expect(markdownPreview.getByText("## Exact Next Action")).toBeVisible();
+  await expect(markdownPreview.getByText("Start next task: Finish rendered export test")).toBeVisible();
   await expect(dialog.getByRole("button", { name: "Copy prompt" })).toBeVisible();
   await expect(dialog.getByRole("button", { name: "Copy Markdown" })).toBeVisible();
   await expect(dialog.getByRole("button", { name: "Save Markdown" })).toBeVisible();
@@ -129,6 +137,9 @@ test("edits task execution notes for active-task context and handoff export", as
   await page.getByRole("button", { name: "Handoff" }).click();
 
   const dialog = page.getByRole("dialog");
-  await expect(dialog.getByText("Continue active task: Finish task detail ergonomics")).toBeVisible();
-  await expect(dialog.getByText("P1 Finish task detail ergonomics - Resume by checking the rendered handoff preview.")).toBeVisible();
+  const promptPreview = dialog.locator(".preview-block").first();
+  const markdownPreview = dialog.locator(".preview-block").nth(1);
+
+  await expect(promptPreview.getByText("Continue active task: Finish task detail ergonomics")).toBeVisible();
+  await expect(markdownPreview.getByText("P1 Finish task detail ergonomics - Resume by checking the rendered handoff preview.")).toBeVisible();
 });
