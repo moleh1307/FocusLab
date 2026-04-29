@@ -158,55 +158,62 @@ function App() {
 
   return (
     <main className="app-shell">
-      <header className="top-bar">
-        <div className="title-stack">
-          <p className="eyebrow">FocusLab</p>
-          <h1>{state.sprint.title || "Untitled sprint"}</h1>
-          <p className="subtitle">Local execution state / JARVIS handoff instrument</p>
-        </div>
-        <div className="top-actions">
-          <span className="status-pill"><span aria-hidden="true" />{state.sprint.status}</span>
-          <button onClick={handleNewSprint}>
-            <RotateCcw size={16} />
-            New sprint
-          </button>
-          <button className="primary-action" onClick={() => setShowExport(true)}>
-            <FileText size={16} />
-            Handoff
-          </button>
-        </div>
-      </header>
+      <section className="command-deck">
+        <header className="top-bar">
+          <div className="brand-mark" aria-hidden="true">
+            <span>FL</span>
+          </div>
+          <div className="title-stack">
+            <p className="eyebrow">FocusLab</p>
+            <h1>{state.sprint.title || "Untitled sprint"}</h1>
+            <p className="subtitle">Local execution state / JARVIS handoff instrument</p>
+          </div>
+          <div className="top-actions">
+            <span className="status-pill"><span aria-hidden="true" />{state.sprint.status}</span>
+            <button onClick={handleNewSprint}>
+              <RotateCcw size={16} />
+              New sprint
+            </button>
+            <button className="primary-action" onClick={() => setShowExport(true)}>
+              <FileText size={16} />
+              Handoff
+            </button>
+          </div>
+        </header>
 
-      <form className="capture-bar" onSubmit={handleCapture}>
-        <Plus size={18} />
-        <input
-          value={capture}
-          onChange={(event) => setCapture(event.target.value)}
-          placeholder="task: implement capture flow, blocker: missing API key, decision: use SQLite..."
-        />
-        <button type="submit">Capture</button>
-      </form>
+        <div className="command-grid">
+          <form className="capture-bar" onSubmit={handleCapture}>
+            <Plus size={18} />
+            <input
+              value={capture}
+              onChange={(event) => setCapture(event.target.value)}
+              placeholder="task: implement capture flow, blocker: missing API key, decision: use SQLite..."
+            />
+            <button type="submit">Capture</button>
+          </form>
 
-      <section className="signal-strip" aria-label="Sprint signals">
-        <div className="signal-card">
-          <span className="signal-code">R01</span>
-          <span>Readiness</span>
-          <strong>{readinessLabel}</strong>
-        </div>
-        <div className="signal-card">
-          <span className="signal-code">T02</span>
-          <span>Open tasks</span>
-          <strong>{openTasks.length}</strong>
-        </div>
-        <div className="signal-card">
-          <span className="signal-code">B03</span>
-          <span>Blockers</span>
-          <strong>{state.blockers.length}</strong>
-        </div>
-        <div className="signal-card">
-          <span className="signal-code">D04</span>
-          <span>Completed</span>
-          <strong>{completedTasks.length}</strong>
+          <section className="signal-strip" aria-label="Sprint signals">
+            <div className="signal-card">
+              <span className="signal-code">R01</span>
+              <span>Readiness</span>
+              <strong>{readinessLabel}</strong>
+            </div>
+            <div className="signal-card">
+              <span className="signal-code">T02</span>
+              <span>Open tasks</span>
+              <strong>{openTasks.length}</strong>
+            </div>
+            <div className="signal-card">
+              <span className="signal-code">B03</span>
+              <span>Blockers</span>
+              <strong>{state.blockers.length}</strong>
+            </div>
+            <div className="signal-card">
+              <span className="signal-code">D04</span>
+              <span>Completed</span>
+              <strong>{completedTasks.length}</strong>
+            </div>
+          </section>
         </div>
       </section>
 

@@ -21,7 +21,7 @@
 - Native Add file and Add folder actions for artifact linking.
 - Editable artifact descriptions that appear in Markdown handoff exports.
 - Editable blocker needed-from/detail and decision context/rationale/impact fields.
-- Flat dark instrument-panel visual system with stronger hierarchy, coded signal metrics, count badges, focus states, and export modal polish.
+- Joined command deck and three-zone workbench visual system with stronger hierarchy, coded signal metrics, count badges, focus states, and export modal polish.
 
 ## Verification
 
@@ -46,6 +46,7 @@ Checked through 2026-04-29:
 - Packaged debug app smoke checks passed for reset, native artifact picker rendering, artifact descriptions, blocker/decision details, task execution notes, and visible prompt/Markdown handoff preview layout. Temporary QA data was reset after each packaged smoke.
 - Rendered visual QA checked the refined cockpit at desktop and narrow widths, with representative content and export modal states.
 - Corrective visual QA removed the generic gradient-dashboard direction and verified the flat instrument-panel cockpit in rendered and packaged debug app states.
+- Signature visual QA verified the joined command deck and workbench composition in rendered desktop/mobile/content/export states and the packaged debug app.
 
 ## Known Gaps
 

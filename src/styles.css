@@ -46,26 +46,33 @@ button:hover {
 
 .app-shell {
   min-height: 100vh;
-  padding: 24px;
+  padding: 18px;
   background: #0a0b0b;
 }
 
-.top-bar,
-.capture-bar,
-.signal-strip,
+.command-deck,
 .workspace-grid {
   width: min(1500px, 100%);
   margin: 0 auto;
 }
 
+.command-deck {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 12px;
+  padding: 16px;
+  border: 1px solid #303633;
+  border-radius: 5px;
+  background:
+    linear-gradient(90deg, rgba(155, 201, 177, 0.07) 0 1px, transparent 1px 100%),
+    #0f1211;
+  background-size: 42px 100%;
+}
+
 .top-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 14px;
-  padding: 0 0 14px;
-  border-bottom: 1px solid #252a28;
+  gap: 14px;
 }
 
 .eyebrow {
@@ -94,9 +101,24 @@ h2 {
 }
 
 .top-actions {
+  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #577767;
+  color: #bce4cf;
+  background: #0a0c0b;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0;
 }
 
 .title-stack {
@@ -146,7 +168,6 @@ h2 {
   grid-template-columns: 24px 1fr 110px;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
   padding: 9px;
   border: 1px solid #38423d;
   border-radius: 4px;
@@ -197,7 +218,6 @@ textarea {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
-  margin-bottom: 16px;
   counter-reset: signal;
 }
 
@@ -236,33 +256,43 @@ textarea {
 
 .workspace-grid {
   display: grid;
-  grid-template-columns: 300px minmax(430px, 1fr) 340px;
-  gap: 10px;
+  grid-template-columns: 310px minmax(430px, 1fr) 350px;
+  gap: 0;
   align-items: start;
+  border: 1px solid #252a28;
+  border-radius: 5px;
+  background: #0f1211;
 }
 
 .left-rail,
 .right-rail,
 .execution-lane {
   display: grid;
-  gap: 14px;
+  gap: 0;
+  align-content: start;
+}
+
+.left-rail,
+.execution-lane {
+  border-right: 1px solid #252a28;
 }
 
 .panel,
 .active-task {
-  border: 1px solid #252a28;
-  border-radius: 3px;
-  background: #101312;
+  border: 0;
+  border-bottom: 1px solid #252a28;
+  border-radius: 0;
+  background: transparent;
 }
 
 .panel {
-  padding: 14px;
+  padding: 16px;
 }
 
 .active-task {
   min-height: 142px;
   padding: 24px;
-  border-color: #3f5e51;
+  border-bottom-color: #3f5e51;
   background: #13231d;
 }
 
@@ -407,7 +437,7 @@ label {
 .task-row,
 .compact-item {
   border: 1px solid #222724;
-  border-radius: 3px;
+  border-radius: 2px;
   background: #0b0d0c;
 }
 
@@ -606,6 +636,10 @@ pre {
   }
 
   .right-rail {
+    border-top: 1px solid #252a28;
+  }
+
+  .right-rail {
     grid-column: 1 / -1;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -622,9 +656,14 @@ pre {
   }
 
   .top-actions {
+    margin-left: 0;
     width: 100%;
     justify-content: space-between;
     flex-wrap: wrap;
+  }
+
+  .command-deck {
+    padding: 14px;
   }
 
   .capture-bar {
@@ -642,6 +681,15 @@ pre {
   .workspace-grid,
   .right-rail {
     grid-template-columns: 1fr;
+  }
+
+  .left-rail,
+  .execution-lane {
+    border-right: 0;
+  }
+
+  .right-rail {
+    border-top: 0;
   }
 
   .task-row {

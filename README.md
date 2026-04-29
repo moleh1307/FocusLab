@@ -22,7 +22,7 @@ Milestone 1, the Single-Sprint Focus Loop Prototype, is implemented and internal
 - Markdown handoff export
 - visible clipboard-ready next-chat prompt
 - guarded new-sprint reset
-- flat instrument-panel cockpit UI with sprint signal metrics and stronger handoff readiness emphasis
+- joined command deck and three-zone workbench UI with sprint signal metrics and stronger handoff readiness emphasis
 - automated tests for handoff, lifecycle, storage serialization, capture/reset transitions, handoff detail editing, task note export, rendered UI flows, and SQLite persistence internals
 
 Debug bundle outputs are produced locally under:
