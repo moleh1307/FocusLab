@@ -35,11 +35,11 @@ Checked on 2026-04-28:
 - Desktop SQLite persistence smoke test passed after app restart.
 - First-run setup state rendered without project-specific seed data.
 - `npm test` covers handoff generation, first-run/reset lifecycle invariants, storage serialization, and capture/reset state transitions.
+- `cargo test --manifest-path src-tauri/Cargo.toml` covers SQLite persistence internals.
 
 ## Known Gaps
 
 - No automated UI test suite yet.
-- Current SQLite database may contain agent-created review data and can be reset during QA/release cleanup.
 
 ## Next Engineering Step
 
