@@ -36,10 +36,11 @@ Checked on 2026-04-28:
 - First-run setup state rendered without project-specific seed data.
 - `npm test` covers handoff generation, first-run/reset lifecycle invariants, storage serialization, and capture/reset state transitions.
 - `cargo test --manifest-path src-tauri/Cargo.toml` covers SQLite persistence internals.
+- `npm run test:ui` covers rendered reset and handoff export flows in Chromium against the Vite app shell.
 
 ## Known Gaps
 
-- No automated UI test suite yet.
+- Rendered UI automation targets the Vite app shell, not the packaged Tauri window.
 
 ## Next Engineering Step
 

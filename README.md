@@ -40,7 +40,7 @@ Debug bundle outputs are produced locally under:
 
 Requirements:
 
-- Node.js `>=18 <21 || >=22`
+- Node.js `>=18.19 <21 || >=22`
 - npm
 - Rust/Cargo for Tauri builds
 
@@ -60,6 +60,12 @@ Run tests:
 
 ```bash
 npm test
+```
+
+Run rendered UI tests:
+
+```bash
+npm run test:ui
 ```
 
 Build the frontend:
@@ -115,4 +121,4 @@ That folder is intentionally ignored by git because it contains private local pl
 
 - Debug build only; no signed release artifact yet.
 - SQLite currently stores the sprint as a JSON snapshot. This is acceptable for `0.1.0` but should migrate before multi-project/multi-sprint scale.
-- Automated coverage does not yet include rendered UI automation.
+- Rendered UI automation currently targets the Vite app shell, not the packaged Tauri window.

@@ -15,4 +15,5 @@
 - Added storage serialization tests for local persistence fallback and round-trip behavior.
 - Extracted capture/reset state transitions and added unit coverage for core execution actions.
 - Added Rust tests for SQLite persistence internals.
+- Added Playwright rendered UI tests for reset and handoff export flows.
 - Published the public GitHub baseline at `https://github.com/moleh1307/FocusLab`.
