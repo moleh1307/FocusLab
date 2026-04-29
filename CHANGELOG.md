@@ -18,4 +18,5 @@
 - Added Playwright rendered UI tests for reset and handoff export flows.
 - Added a release readiness checklist for local debug prototype review.
 - Added artifact linking UX decision for native file/folder picker flow.
+- Added native file/folder picker actions for artifact links.
 - Published the public GitHub baseline at `https://github.com/moleh1307/FocusLab`.

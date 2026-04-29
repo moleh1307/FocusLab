@@ -7,6 +7,7 @@ import {
   FileDown,
   FileText,
   FolderOpen,
+  HardDrive,
   ListChecks,
   Plus,
   RotateCcw,
@@ -14,9 +15,10 @@ import {
   ShieldAlert,
   Sparkles
 } from "lucide-react";
-import { applyCapture, resetSprintState } from "./actions";
+import { addArtifactPath, applyCapture, resetSprintState } from "./actions";
 import { FocusLabState, nowIso, Priority, Status } from "./domain";
 import { generateMarkdownHandoff, generateNextChatPrompt, getReadinessWarnings } from "./handoff";
+import { ArtifactPickerKind, pickArtifactPath } from "./picker";
 import { loadFallbackState, loadPersistedState, saveFallbackState, savePersistedState } from "./storage";
 import "./styles.css";
 
@@ -30,6 +32,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [showExport, setShowExport] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [pickerError, setPickerError] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -110,6 +113,22 @@ function App() {
   function confirmNewSprint() {
     setState(resetSprintState());
     setShowResetConfirm(false);
+  }
+
+  async function handlePickArtifact(kind: ArtifactPickerKind) {
+    setPickerError("");
+
+    try {
+      const path = await pickArtifactPath(kind);
+      if (!path) return;
+
+      const next = addArtifactPath(state, path, kind);
+      if (next) {
+        setState(next);
+      }
+    } catch {
+      setPickerError("Native picker is unavailable in this environment.");
+    }
   }
 
   async function copy(text: string) {
@@ -295,6 +314,17 @@ function App() {
           </RailSection>
 
           <RailSection icon={<FolderOpen size={16} />} title="Artifacts">
+            <div className="artifact-actions">
+              <button onClick={() => handlePickArtifact("file")}>
+                <FileText size={16} />
+                Add file
+              </button>
+              <button onClick={() => handlePickArtifact("folder")}>
+                <HardDrive size={16} />
+                Add folder
+              </button>
+            </div>
+            {pickerError ? <p className="inline-warning">{pickerError}</p> : null}
             {state.artifacts.length === 0 ? <p className="empty-copy">No artifact paths linked.</p> : state.artifacts.map((artifact) => (
               <article className="compact-item" key={artifact.id}>
                 <strong>{artifact.label}</strong>

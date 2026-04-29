@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyCapture, resetSprintState } from "./actions";
+import { addArtifactPath, applyCapture, labelFromPath, resetSprintState } from "./actions";
 import { createInitialState } from "./domain";
 
 const now = "2026-04-29T06:45:00.000Z";
@@ -81,5 +81,37 @@ describe("reset state transition", () => {
     expect(reset.tasks).toEqual([]);
     expect(reset.blockers).toEqual([]);
     expect(reset.decisions).toEqual([]);
+  });
+});
+
+describe("artifact picker state transitions", () => {
+  it("derives artifact labels from file and folder paths", () => {
+    expect(labelFromPath("/Users/melih/project/report.md")).toBe("report.md");
+    expect(labelFromPath("/Users/melih/project/output/")).toBe("output");
+  });
+
+  it("adds selected file and folder artifacts without changing the schema", () => {
+    let state = createInitialState();
+    state = addArtifactPath(state, "/Users/melih/project/report.md", "file", testOptions()) ?? state;
+    state = addArtifactPath(state, "/Users/melih/project/output", "folder", testOptions()) ?? state;
+
+    expect(state.artifacts[0]).toMatchObject({
+      id: "artifact_test",
+      label: "output",
+      path: "/Users/melih/project/output",
+      kind: "folder"
+    });
+    expect(state.artifacts[1]).toMatchObject({
+      id: "artifact_test",
+      label: "report.md",
+      path: "/Users/melih/project/report.md",
+      kind: "file"
+    });
+  });
+
+  it("ignores empty picker selections", () => {
+    const state = createInitialState();
+
+    expect(addArtifactPath(state, "  ", "file", testOptions())).toBeNull();
   });
 });

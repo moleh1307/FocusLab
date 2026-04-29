@@ -44,3 +44,25 @@ test("renders a fresh-chat handoff export from captured sprint state", async ({ 
   await expect(dialog.getByRole("button", { name: "Copy Markdown" })).toBeVisible();
   await expect(dialog.getByRole("button", { name: "Save Markdown" })).toBeVisible();
 });
+
+test("adds file and folder artifacts through the picker seam", async ({ page }) => {
+  await page.addInitScript(() => {
+    const focusLabWindow = window as Window & {
+      __focusLabPickArtifact?: (kind: "file" | "folder") => Promise<string | null>;
+    };
+
+    focusLabWindow.__focusLabPickArtifact = async (kind) =>
+      kind === "file" ? "/Users/melih/project/report.md" : "/Users/melih/project/output";
+  });
+  await page.goto("/");
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+
+  await page.getByRole("button", { name: "Add file" }).click();
+  await page.getByRole("button", { name: "Add folder" }).click();
+
+  await expect(page.getByText("report.md", { exact: true })).toBeVisible();
+  await expect(page.getByText("/Users/melih/project/report.md")).toBeVisible();
+  await expect(page.getByText("output", { exact: true })).toBeVisible();
+  await expect(page.getByText("/Users/melih/project/output")).toBeVisible();
+});

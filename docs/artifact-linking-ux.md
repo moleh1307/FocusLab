@@ -6,6 +6,8 @@ Use a native file/folder picker for artifact linking, backed by Tauri's dialog p
 
 Official Tauri reference: https://v2.tauri.app/plugin/dialog/
 
+Implementation status: implemented for the current prototype.
+
 ## Rationale
 
 Artifact links are handoff-critical because new JARVIS/Codex chats need exact file and folder paths. Manual path entry works for power users, but it is too easy to mistype paths and too slow for repeated sprint capture.

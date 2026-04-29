@@ -1,7 +1,8 @@
-import { createId, createInitialState, FocusLabState, Note, nowIso } from "./domain";
+import { Artifact, createId, createInitialState, FocusLabState, Note, nowIso } from "./domain";
 
 type IdFactory = typeof createId;
 type TimeFactory = typeof nowIso;
+type ArtifactKind = Extract<Artifact["kind"], "file" | "folder">;
 
 function withUpdatedSprint(state: FocusLabState, updatedAt: string): FocusLabState {
   return {
@@ -15,6 +16,43 @@ function withUpdatedSprint(state: FocusLabState, updatedAt: string): FocusLabSta
 
 export function resetSprintState() {
   return createInitialState();
+}
+
+export function labelFromPath(path: string) {
+  const cleaned = path.trim().replace(/[\\/]+$/, "");
+  const parts = cleaned.split(/[\\/]/);
+
+  return parts.at(-1) || "Artifact";
+}
+
+export function addArtifactPath(
+  state: FocusLabState,
+  path: string,
+  kind: ArtifactKind,
+  options: { createId?: IdFactory; nowIso?: TimeFactory } = {}
+): FocusLabState | null {
+  const trimmedPath = path.trim();
+  if (!trimmedPath) return null;
+
+  const makeId = options.createId ?? createId;
+  const makeNow = options.nowIso ?? nowIso;
+  const now = makeNow();
+  const next = withUpdatedSprint(state, now);
+
+  return {
+    ...next,
+    artifacts: [
+      {
+        id: makeId("artifact"),
+        label: labelFromPath(trimmedPath),
+        path: trimmedPath,
+        kind,
+        description: "",
+        createdAt: now
+      },
+      ...state.artifacts
+    ]
+  };
 }
 
 export function applyCapture(

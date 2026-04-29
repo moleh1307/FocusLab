@@ -96,6 +96,12 @@ h2 {
   gap: 10px;
 }
 
+.artifact-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -219,6 +225,13 @@ label {
   color: #93a19a;
   font-size: 13px;
   line-height: 1.45;
+}
+
+.inline-warning {
+  margin: 0;
+  color: #e4bd6d;
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .warning-list {
