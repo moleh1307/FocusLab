@@ -12,4 +12,5 @@
 - Replaced project-specific seed data with a reusable first-run sprint setup state.
 - Added a guarded New sprint action with an in-app confirmation for clearing local sprint state intentionally.
 - Added lifecycle tests for first-run/reset state invariants.
+- Added storage serialization tests for local persistence fallback and round-trip behavior.
 - Published the public GitHub baseline at `https://github.com/moleh1307/FocusLab`.
