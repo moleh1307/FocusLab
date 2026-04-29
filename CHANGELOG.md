@@ -24,4 +24,5 @@
 - Added task execution notes so active/open task handoffs carry resume context.
 - Added visible next-chat prompt preview inside the handoff export modal.
 - Refined the cockpit UI with stronger visual hierarchy, sprint signal metrics, readiness emphasis, count badges, and polished desktop panel styling.
+- Replaced the generic gradient-dashboard styling with a flatter instrument-panel visual direction for the cockpit UI.
 - Published the public GitHub baseline at `https://github.com/moleh1307/FocusLab`.

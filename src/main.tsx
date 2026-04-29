@@ -162,7 +162,7 @@ function App() {
         <div className="title-stack">
           <p className="eyebrow">FocusLab</p>
           <h1>{state.sprint.title || "Untitled sprint"}</h1>
-          <p className="subtitle">Local sprint cockpit for clean JARVIS/Codex handoffs</p>
+          <p className="subtitle">Local execution state / JARVIS handoff instrument</p>
         </div>
         <div className="top-actions">
           <span className="status-pill"><span aria-hidden="true" />{state.sprint.status}</span>
@@ -189,18 +189,22 @@ function App() {
 
       <section className="signal-strip" aria-label="Sprint signals">
         <div className="signal-card">
+          <span className="signal-code">R01</span>
           <span>Readiness</span>
           <strong>{readinessLabel}</strong>
         </div>
         <div className="signal-card">
+          <span className="signal-code">T02</span>
           <span>Open tasks</span>
           <strong>{openTasks.length}</strong>
         </div>
         <div className="signal-card">
+          <span className="signal-code">B03</span>
           <span>Blockers</span>
           <strong>{state.blockers.length}</strong>
         </div>
         <div className="signal-card">
+          <span className="signal-code">D04</span>
           <span>Completed</span>
           <strong>{completedTasks.length}</strong>
         </div>
