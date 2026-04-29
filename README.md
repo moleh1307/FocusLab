@@ -111,6 +111,7 @@ That folder is intentionally ignored by git because it contains private local pl
 - [Architecture](docs/architecture.md)
 - [Data Model](docs/data-model.md)
 - [Product Workflow](docs/product-workflow.md)
+- [Artifact Linking UX](docs/artifact-linking-ux.md)
 - [Handoff Contract](docs/handoff-contract.md)
 - [Implementation Plan](docs/implementation-plan.md)
 - [Prototype Status](docs/prototype-status.md)

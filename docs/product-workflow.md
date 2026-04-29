@@ -51,6 +51,16 @@ Provide one command-style capture input with typed shortcuts:
 
 This gives Raycast-like speed without needing a full command palette in the first implementation.
 
+### Artifact Linking
+
+Artifact capture should support both speed and correctness:
+
+- Fast path: keep `artifact: Label | /absolute/path` in the command input.
+- Reliable path: provide `Add file` and `Add folder` actions in the Artifacts rail.
+- Native picker selections should store exact local paths and should not read, copy, upload, or mutate the selected files.
+
+See `docs/artifact-linking-ux.md` for the implementation boundary.
+
 ### Focused Editing
 
 Clicking any item opens an inline or side-panel editor. Avoid modal-heavy flows. The app should keep the active sprint visible while details are edited.
@@ -153,4 +163,3 @@ The prototype is visually acceptable only if:
 Idea considered: make the handoff readiness checklist a visible product primitive, not a hidden export validation step.
 
 Decision: acted. This becomes part of the first-screen layout because it directly supports the core pain: losing context across chats.
-
